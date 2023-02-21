@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'scripts/hero_api.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<style>
+    .stat-box {
+        display: flex; 
+        flex-direction: row; 
+        height: 20%; 
+        margin: 12px;
+    }
+
+    .content-stat-box {
+        height: 100%; 
+        width: 80%;
+    }
+
+    .button-box {
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+    }
+</style>
+
+<section>
+    <dialog class="nes-dialog is-dark is-rounded" id="dialog-dark-rounded">
+        <form method="dialog">
+            <div style="display: flex; flex-direction: column; width: 550px; height: 700px;">
+
+                <div class="stat-box">
+                    <div class="content-stat-box nes-container with-title is-dark">
+                        <p class="title">ENDURANCE</p>
+
+                        <div id="enduranceDiv">
+                            {% for e in endurance %}
+                            <i class="nes-icon is-small heart"></i>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="button-box">
+                        <label class="nes-btn" style="height: 42px;" id="plusBtEndurance" onclick="UpdateStats('endurance', 1);">+</label>
+                        <label class="nes-btn" style="height: 42px;" id="minusBtEndurance" onclick="UpdateStats('endurance', -1);">-</label>
+                    </div>
+                </div>
+
+                <div class="stat-box">
+                    <div class="content-stat-box nes-container with-title is-dark">
+                        <p class="title">HABILETE</p>
+
+                        <div id="dexterityDiv" style="width: 70%">
+                            {% for d in dexterity %}
+                            <i class="nes-icon is-small trophy"></i>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="button-box">
+                        <label class="nes-btn" style="height: 42px;" id="plusBtDexterity" onclick="UpdateStats('dexterity', 1);">+</label>
+                        <label class="nes-btn" style="height: 42px;" id="minusBtDexterity" onclick="UpdateStats('dexterity', -1);">-</label>
+                    </div>
+                </div>
+
+                <div class="stat-box">
+                    <div class="content-stat-box nes-container with-title is-dark">
+                        <p class="title">CHANCE</p>
+
+                        <div id="luckDiv" class="statContent">
+                            {% for l in luck %}
+                            <i class="nes-icon is-small star"></i>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="button-box">
+                        <label class="nes-btn" style="height: 42px;" id="plusBtLuck" onclick="UpdateStats('luck', 1);">+</label>
+                        <label class="nes-btn" style="height: 42px;" id="minusBtLuck" onclick="UpdateStats('luck', -1);">-</label>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: row;">
+                    <div class="mid-full-bar nes-container with-title is-dark">
+                        <p class="title">Inventaire</p>
+
+                    </div>
+
+                    <div class="mid-full-bar" style="display: flex; flex-direction: column;">
+                        <div class="stat-bar nes-container with-title is-dark">
+                            <p class="title">Or</p>
+
+                        </div>
+
+                        <div class="stat-bar nes-container with-title is-dark">
+                            <p class="title">Magie</p>
+
+                        </div>
+
+                        <div class="stat-bar nes-container with-title is-dark">
+                            <p class="title">Formules</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--table class="nes-table is-dark">
+                        <thead>
+                            <tr>
+                                <th>HEROS</th>
+                                <th colspan="2">{{ name }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label>ENDURANCE</label>
+                                </td>
+                                <td>
+                                    <div id="enduranceDiv">
+                                    {% for e in endurance %}
+                                        <i class="nes-icon is-small heart"></i>
+                                    {% endfor %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="nes-btn" id="plusBtEndurance" onclick="UpdateStats('endurance', 1);">+</label>
+                                    <label class="nes-btn" id="minusBtEndurance" onclick="UpdateStats('endurance', -1);">-</label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label>HABILETE</label>
+                                </td>
+                                <td>
+                                    <div id="dexterityDiv">
+                                    {% for d in dexterity %}
+                                        <i class="nes-icon is-small trophy"></i>
+                                    {% endfor %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="nes-btn" id="plusBtDexterity" onclick="UpdateStats('dexterity', 1);">+</label>
+                                    <label class="nes-btn" id="minusBtDexterity" onclick="UpdateStats('dexterity', -1);">-</label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label>CHANCE</label>
+                                </td>
+                                <td>
+                                    <div id="luckDiv">
+                                    {% for l in luck %}
+                                        <i class="nes-icon is-small star"></i>
+                                    {% endfor %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="nes-btn" id="plusBtLuck" onclick="UpdateStats('luck', 1);">+</label>
+                                    <label class="nes-btn" id="minusBtLuck" onclick="UpdateStats('luck', -1);">-</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div-->
+
+            <menu style="text-align: right;">
+                <button class="nes-btn">Fermer</button>
+            </menu>
+        </form>
+    </dialog>
+</section>
+
+
+<p class="title">{{ chapter.chapter_number }}</p>
+<p>{{ chapter.content }}</p>
+
+<div style="display: flex; justify-content: space-evenly; align-items: stretch;">
+    {% for link in chapter.links.all %}
+    <a class="nes-btn" href="{% url 'chapter' book_id link.chapter_dest_number %}">{{ link.chapter_dest_number }}</a>
+    {% endfor %}
+</div>
+
+<div style="text-align: center; margin: 5em;">
+    <button type="button" class="nes-btn is-primary"
+        onclick="document.getElementById('dialog-dark-rounded').showModal();">
+        Ouvrir inventaire
+    </button>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<div style="text-align: center; margin: 5em;">
+    <a class="nes-btn is-error" href="{% url 'index'%}">Revenir à l'accueil</a>
+</div>
+{% endblock %}

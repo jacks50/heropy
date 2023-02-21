@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block body %}
+<p class="title">{{ title }}</p>
+
+<div style="text-align: center; margin: 2em;">
+    <a class="nes-btn is-success" href="{% url 'chapter' id 1 %}">Commencer l'aventure !</a>
+</div>
+
+<div style="text-align: center; margin: 2em;">
+    <a class="nes-btn is-error" href="{% url 'index'%}">Revenir à l'accueil</a>
+</div>
+
+<div class="nes-table-responsive">
+    <table class="nes-table is-dark is-centered" style="text-align: center;">
+        <thead>
+            <tr>
+                <td>Chapitre</td>
+                <td>Contenu</td>
+                <td>Liens</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chap in chapters %}
+                <tr>
+                    <td>{{ chap.chapter_number }}</td>
+                    <td>{{ chap.content }}</td>
+                    <td>
+                        {% for link in chap.links.all %}
+                            {{ link.chapter_dest_number }}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div style="text-align: center; margin: 5em;">
+    <a class="nes-btn is-error" href="{% url 'index'%}">Revenir à l'accueil</a>
+</div>
+{% endblock %}

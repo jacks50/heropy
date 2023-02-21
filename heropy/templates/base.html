@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+
+    <style>
+        .nes-table.is-dark::before {
+            position: inherit;
+        }
+    </style>
+
+    {% block styles %}
+    {% endblock %}
+
+    {% block script %}
+    {% endblock %}
+</head>
+
+<body style="background-color: #212529;">
+    <div class="nes-container with-title is-dark" style="margin: 5em;">
+    {% block body %}
+    {% endblock %}
+
+    {% block footer %}
+    {% endblock %}
+    </div>
+</body>
+
+</html>

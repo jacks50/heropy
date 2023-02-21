@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+    .nes-field {
+        padding: 8px;
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+<script>
+    function Random(dice_number, base_value, id) {
+        var rnd = 0;
+
+        for (let i = 0; i < dice_number; i++) {
+            rnd += Math.floor(Math.random() * 6) + 1;
+        }
+        
+        document.getElementById(id).value = rnd;
+    }
+</script>
+{% endblock %}
+
+{% block body %}
+<form action="{% url 'book' %}" method="post">
+    {% csrf_token %}
+    <p style="text-align: center;">Je me rappelle de vous ...</p>
+
+    <div class="nes-table-responsive">
+        <div class="nes-field">
+            <label for="name_field">Votre NOM</label>
+            <input type="text" required name="player_name" id="name_field" class="nes-field"></input>
+        </div>
+
+        <div class="nes-field" style="text-align: center; margin: 2em;">
+            <p>C'est bien cela ?</p>
+            <input type="submit" value="Continuer l'aventure" class="nes-btn is-success"></input>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block footer %}
+<div style="text-align: right; margin: 2em;">
+    <a class="nes-btn is-error" href="{% url 'index'%}">Revenir à l'accueil</a>
+</div>
+{% endblock %}
