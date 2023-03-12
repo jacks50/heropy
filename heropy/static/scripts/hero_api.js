@@ -15,38 +15,8 @@ function CallApi(fetchUrl, fetchHeaders, updateCallback) {
 
 function UpdateStats(stat, value) {
     CallApi(`/heropy/stat/${stat}/${value}`, DEFAULT_FETCH_HEADER, (responseData) => {
-        var container = document.getElementById(`${stat}Div`);
-
-        container.innerHTML = "";
-
-        var className = ""
-
-        switch(stat) {
-            case 'endurance':
-                className = "nes-icon is-small heart";
-                break;
-            case 'dexterity':
-                className = "nes-icon is-small trophy";
-                break;
-            case 'luck':
-                className = "nes-icon is-small star";
-                break;
-        }
-
-        statValue = responseData[stat]
-
-        if (statValue > 20) {
-            var elem = document.createElement("i");
-            elem.className = className;
-            elem.innerText = "x" + statValue;
-            container.appendChild(elem);
-        } else {
-            for (let i = 0; i < statValue; i++) {
-                var elem = document.createElement("i");
-                elem.className = className;
-                container.appendChild(elem);
-            }
-        }
+        var i = document.getElementById(`${stat}Field`);
+        i.textContent = "x " + responseData[stat];
     })
 }
 

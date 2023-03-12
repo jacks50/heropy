@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<form action="{% url 'booklist' %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <div class="lists">
+        <ul class="nes-list is-disc">
+            {% for t in titles %}
+            <li>
+                <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%">
+                    {{ t.title }}
+
+                    <button class="nes-btn is-error" name="reload_book_id" type="submit" value="{{ t.id }}">Recharger
+                    </button>
+                    <button class="nes-btn is-error" name="delete_book_id" type="submit" value="{{ t.id }}">Supprimer
+                    </button>
+                </div>
+            </li>
+            {% endfor %}
+
+            <li>
+                <div style="display: inline-block;">
+
+                    <label class="nes-btn">
+                        <label for="newfile">Choose a file</label>
+                        <input accept="application/pdf" id="newfile" name="newfile" type="file">
+                    </label>
+
+                    <input class="nes-btn is-success" type="submit" value="Valider"/>
+                </div>
+            </li>
+        </ul>
+    </div>
+</form>
+
+<div style="text-align: right; margin: 2em;">
+    <a class="nes-btn is-error" href="{% url 'index' %}">Revenir à l'accueil</a>
+</div>
+{% endblock %}

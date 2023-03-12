@@ -14,24 +14,31 @@
 <div class="nes-table-responsive">
     <table class="nes-table is-dark is-centered" style="text-align: center;">
         <thead>
-            <tr>
-                <td>Chapitre</td>
-                <td>Contenu</td>
-                <td>Liens</td>
-            </tr>
+        <tr>
+            <td>Chapitre</td>
+            <td>Contenu</td>
+            <td>Liens</td>
+        </tr>
         </thead>
         <tbody>
-            {% for chap in chapters %}
-                <tr>
-                    <td>{{ chap.chapter_number }}</td>
-                    <td>{{ chap.content }}</td>
-                    <td>
-                        {% for link in chap.links.all %}
-                            {{ link.chapter_dest_number }}
-                        {% endfor %}
-                    </td>
-                </tr>
-            {% endfor %}
+        {% for chap in chapters %}
+        <tr>
+            <td>
+                {{ chap.chapter_number }}
+                {% if chap.has_battle %}
+                <i class="nes-icon is-small star"></i>
+                {% endif %}
+            </td>
+            <td>
+                {{ chap.content|safe }}
+            </td>
+            <td>
+                {% for link in chap.links.all %}
+                {{ link.chapter_dest_number }}
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>

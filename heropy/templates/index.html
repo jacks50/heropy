@@ -2,20 +2,20 @@
 {% load static %}
 
 {% block body %}
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <p style="text-align: center;">Un site dont VOUS êtes le héros !</p>
+<div class="index-class">
+    <h2 style="text-align: center;">Un site dont VOUS êtes le héros !</h2>
 
-        <p style="text-align: center;">
-            Bienvenue jeune aventurier !<br>
-            Tu as soif d'aventure ? Tu tombes bien ! Nous avons une série de quêtes pour toi !<br/>
-            A moins que tu ne soies déjà pris ailleurs ?
-        </p>
+    <p style="text-align: center; margin-top: auto; margin-bottom: 48px;">
+        Bienvenue jeune aventurier !<br><br>
+        Tu as soif d'aventure ? Tu tombes bien ! Nous avons une série de quêtes pour toi !<br/>
+        A moins que tu ne soies déjà pris ailleurs ?
+    </p>
 
-        <img src="{% static 'img/fire.gif' %}" alt="fire"/>
-
-        <div style="display: block; align-items: center;">
-            <a class="nes-btn is-success" href="{% url 'start'%}">COMMENCER</a>
-            <a class="nes-btn is-success" href="{% url 'load'%}">CONTINUER</a>
-        </div>
+    <div style="display: flex; flex-direction: row; gap: 24px; margin-bottom: auto; width: 100%; align-items: center; justify-content: center;">
+        <a class="nes-btn is-success" href="{% url 'start' %}">COMMENCER</a>
+        <a class="nes-btn is-primary" href="{% url 'load' %}">CONTINUER</a>
+        <a class="nes-btn is-warning" href="{% url 'settings' %}">OPTIONS</a>
+        <a class="nes-btn is-warning" href="{% url 'booklist' %}">GERER LES LIVRES</a>
     </div>
+</div>
 {% endblock %}

@@ -10,6 +10,7 @@ python = "^3.8"
 fitz = "^0.0.1.dev2"
 pymupdf = "^1.21.0"
 django = "^4.1.3"
+lxml = { file = "lxml-4.9.0-cp311-cp311-win_amd64.whl" }
 
 
 [build-system]

@@ -1,26 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block styles %}
 <style>
     .nes-field {
         padding: 8px;
     }
+
 </style>
-{% endblock %}
-
-{% block script %}
-<script>
-    function Random(dice_number, base_value, id) {
-        var rnd = 0;
-        
-        for (let i = 0; i < dice_number; i++) {
-            rnd += Math.floor(Math.random() * 6) + 1;
-        }
-
-        
-        document.getElementById(id).value = rnd + base_value;
-    }
-</script>
 {% endblock %}
 
 {% block body %}
@@ -31,46 +18,71 @@
     <div class="nes-table-responsive">
         <div class="nes-field">
             <label for="name_field">Votre NOM</label>
-            <input type="text" required name="player_name" id="name_field" class="nes-field"></input>
+            <input class="nes-field" id="name_field" name="player_name" required type="text"></input>
         </div>
 
         <div class="nes-field">
             <label for="name_field">Votre ENDURANCE<sup>?</sup></label>
-            <input type="number" required name="player_end" id="endurance_field" class="nes-field"></input>
-            <button type="button" class="nes-btn is-warning" onclick="Random(2, 12, 'endurance_field');">LANCER LES DES</button>
+            <input class="nes-field" id="endurance_field" name="player_end" required type="number"></input>
+            <button class="nes-btn is-warning" onclick="Random(2, 12, 'endurance_field');" type="button">LANCER LES
+                DES
+            </button>
         </div>
 
         <div class="nes-field">
             <label for="name_field">Votre HABILETE<sup>?</sup></label>
-            <input type="number" required name="player_dex" id="dexterity_field" class="nes-field"></input>
-            <button type="button" class="nes-btn is-warning" onclick="Random(1, 6, 'dexterity_field');">LANCER LES DES</button>
+            <input class="nes-field" id="dexterity_field" name="player_dex" required type="number"></input>
+            <button class="nes-btn is-warning" onclick="Random(1, 6, 'dexterity_field');" type="button">LANCER LES DES
+            </button>
         </div>
 
         <div class="nes-field">
             <label for="name_field">Votre CHANCE<sup>?</sup></label>
-            <input type="number" required name="player_luck" id="luck_field" class="nes-field"></input>
-            <button type="button" class="nes-btn is-warning" onclick="Random(1, 6, 'luck_field');">LANCER LES DES</button>
+            <input class="nes-field" id="luck_field" name="player_luck" required type="number"></input>
+            <button class="nes-btn is-warning" onclick="Random(1, 6, 'luck_field');" type="button">LANCER LES DES
+            </button>
         </div>
 
         <div class="nes-field">
             <label for="name_field">Votre MAGIE<sup>?</sup></label>
-            <input type="number" required name="player_magic" id="magic_field" class="nes-field"></input>
-            <button type="button" class="nes-btn is-warning" onclick="Random(2, 6, 'magic_field');">LANCER LES DES</button>
+            <input class="nes-field" id="magic_field" name="player_magic" required type="number"></input>
+            <button class="nes-btn is-warning" onclick="Random(2, 6, 'magic_field');" type="button">LANCER LES DES
+            </button>
         </div>
 
         <div class="nes-field">
             <label for="name_field">Votre AVENTURE</label>
-            <select name="player_book" required id="dark_select">
-                <option value="" disabled selected hidden>Choisir ...</option>
+            <select id="dark_select" name="player_book" required>
+                <option disabled hidden selected value="">Choisir ...</option>
                 {% for t in titles %}
-                    <option value="{{ t.id }}">{{ t.title }}</option>
+                <option value="{{ t.id }}">{{ t.title }}</option>
                 {% endfor %}
             </select>
         </div>
 
+        <div style="display: inline-flex; flex-direction: row; gap: 24px; justify-content: flex-start;">
+            <div style="display: flex; flex-direction: column; gap: 12px; flex: 1 1 auto; align-items: center; justify-content: center;">
+                <img alt="player" src="{% static 'img/warrior.gif' %}"/>
+                <input checked id="avatar_warrior" name="avatar" type="radio"/>
+                <span>Guerrier</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; flex: 1 1 auto; align-items: center; justify-content: center;">
+                <img alt="player" src="{% static 'img/necro.gif' %}"/>
+                <input id="avatar_necro" name="avatar" type="radio"/>
+                <span>Nécromancien</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; flex: 1 1 auto; align-items: center; justify-content: center;">
+                <img alt="player" src="{% static 'img/lizard.gif' %}"/>
+                <input id="avatar_lizard" name="avatar" type="radio"/>
+                <span>Lézard</span>
+            </div>
+        </div>
+
         <div class="nes-field" style="text-align: center; margin: 2em;">
             <p>Etes-vous prêt ?</p>
-            <input type="submit" value="Commencer l'aventure" class="nes-btn is-success"></input>
+            <input class="nes-btn is-success" type="submit" value="Commencer l'aventure"></input>
         </div>
     </div>
 </form>
@@ -78,6 +90,6 @@
 
 {% block footer %}
 <div style="text-align: right; margin: 2em;">
-    <a class="nes-btn is-error" href="{% url 'index'%}">Revenir à l'accueil</a>
+    <a class="nes-btn is-error" href="{% url 'index' %}">Revenir à l'accueil</a>
 </div>
 {% endblock %}

@@ -1,0 +1,43 @@
+.main-body {
+    padding: 2em;
+    height:100vh;
+    color: white;
+}
+
+.index-class {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 12px;
+}
+
+.content-stat-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    height: 25%;
+}
+
+.content-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.chapter-menu {
+    display: flex;
+    flex-direction: column;
+    background: repeating-linear-gradient(-90deg, #000, #000 1px, #3C281D 1px, #3C281D 10px);
+    width:25%;
+}

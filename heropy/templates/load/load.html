@@ -5,6 +5,7 @@
     .nes-field {
         padding: 8px;
     }
+
 </style>
 {% endblock %}
 
@@ -19,24 +20,26 @@
         
         document.getElementById(id).value = rnd;
     }
+
 </script>
 {% endblock %}
 
 {% block body %}
-<form action="{% url 'book' %}" method="post">
+<form action="{% url 'load' %}" method="post">
     {% csrf_token %}
     <p style="text-align: center;">Je me rappelle de vous ...</p>
 
-    <div class="nes-table-responsive">
-        <div class="nes-field">
-            <label for="name_field">Votre NOM</label>
-            <input type="text" required name="player_name" id="name_field" class="nes-field"></input>
-        </div>
-
-        <div class="nes-field" style="text-align: center; margin: 2em;">
-            <p>C'est bien cela ?</p>
-            <input type="submit" value="Continuer l'aventure" class="nes-btn is-success"></input>
-        </div>
+    <div class="lists">
+        <ul class="nes-list is-disc">
+            {% for p in players %}
+            <li>
+                <div style="display: inline-block;">
+                    {{ p.name }} : {{ p.book.title }} <input class="nes-btn is-success" name="player_id" type="submit"
+                                                             value="{{ p.id }}">Continuer</input>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 </form>
 {% endblock %}
