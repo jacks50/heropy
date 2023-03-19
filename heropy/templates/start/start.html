@@ -11,42 +11,49 @@
 {% endblock %}
 
 {% block body %}
-<form action="{% url 'book' %}" method="post">
+<form action="{% url 'start' %}" method="post">
     {% csrf_token %}
     <p style="text-align: center;">Parlez-nous un peu de vous ...</p>
 
     <div class="nes-table-responsive">
         <div class="nes-field">
             <label for="name_field">Votre NOM</label>
-            <input class="nes-field" id="name_field" name="player_name" required type="text"></input>
+            <input class="nes-field" id="name_field" name="player_name" required type="text"/>
         </div>
 
         <div class="nes-field">
             <label for="name_field">Votre ENDURANCE<sup>?</sup></label>
-            <input class="nes-field" id="endurance_field" name="player_end" required type="number"></input>
-            <button class="nes-btn is-warning" onclick="Random(2, 12, 'endurance_field');" type="button">LANCER LES
-                DES
+            <input class="nes-field" id="endurance_field" name="player_end" required type="number"/>
+            <input class="nes-field" id="endurance_base" name="player_end_base" type="number" value="12">
+            <button class="nes-btn is-warning" onclick="Random(2, 'endurance_base', 'endurance_field');" type="button">
+                LANCER LES DES
             </button>
         </div>
 
         <div class="nes-field">
             <label for="name_field">Votre HABILETE<sup>?</sup></label>
-            <input class="nes-field" id="dexterity_field" name="player_dex" required type="number"></input>
-            <button class="nes-btn is-warning" onclick="Random(1, 6, 'dexterity_field');" type="button">LANCER LES DES
+            <input class="nes-field" id="dexterity_field" name="player_dex" required type="number"/>
+            <input class="nes-field" id="dexterity_base" name="player_dex_base" type="number" value="6"/>
+            <button class="nes-btn is-warning" onclick="Random(1, 'dexterity_base', 'dexterity_field');" type="button">
+                LANCER LES DES
             </button>
         </div>
 
         <div class="nes-field">
             <label for="name_field">Votre CHANCE<sup>?</sup></label>
-            <input class="nes-field" id="luck_field" name="player_luck" required type="number"></input>
-            <button class="nes-btn is-warning" onclick="Random(1, 6, 'luck_field');" type="button">LANCER LES DES
+            <input class="nes-field" id="luck_field" name="player_luck" required type="number"/>
+            <input class="nes-field" id="luck_base" name="player_luck_base" type="number" value="6"/>
+            <button class="nes-btn is-warning" onclick="Random(1, 'luck_base', 'luck_field');" type="button">
+                LANCER LES DES
             </button>
         </div>
 
         <div class="nes-field">
             <label for="name_field">Votre MAGIE<sup>?</sup></label>
-            <input class="nes-field" id="magic_field" name="player_magic" required type="number"></input>
-            <button class="nes-btn is-warning" onclick="Random(2, 6, 'magic_field');" type="button">LANCER LES DES
+            <input class="nes-field" id="magic_field" name="player_magic" required type="number"/>
+            <input class="nes-field" id="magic_base" name="player_magic_base" type="number" value="6"/>
+            <button class="nes-btn is-warning" onclick="Random(2, 'magic_base', 'magic_field');" type="button">
+                LANCER LES DES
             </button>
         </div>
 

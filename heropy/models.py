@@ -10,22 +10,23 @@ class Book(models.Model):
 class BookChapter(models.Model):
     chapter_number = models.IntegerField(default=0)
     content = models.TextField()
-    has_battle = models.BooleanField(default=False)
     book = models.ForeignKey(Book, on_delete=models.CASCADE, null=True, related_name='chapters')
+
+    def has_battle(self):
+        return self.enemies.all()
 
 
 class ChapterLink(models.Model):
     chapter_dest_number = models.IntegerField(default=0)
-    link = models.ForeignKey(BookChapter, on_delete=models.CASCADE, null=True, related_name='links')
+    chapter_src = models.ForeignKey(BookChapter, on_delete=models.CASCADE, null=True, related_name='links')
+    chapter_dest = models.ForeignKey(BookChapter, on_delete=models.CASCADE, null=True)
 
 
 class ChapterBattle(models.Model):
     name = models.CharField(max_length=64)
-
     dexterity = models.IntegerField(default=1)
     endurance = models.IntegerField(default=1)
-
-    chapter = models.ForeignKey(BookChapter, on_delete=models.CASCADE, null=True, related_name='ennemies')
+    chapter = models.ForeignKey(BookChapter, on_delete=models.CASCADE, null=True, related_name='enemies')
 
 
 class Player(models.Model):

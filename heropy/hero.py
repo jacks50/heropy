@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import functools
 import logging
 import re
 
@@ -31,11 +32,12 @@ class BookManager:
 
         # iterate over all pages of the document
         for index in range(0, book_document.page_count):
-            if index < 0:
-                continue
-
             page = book_document.load_page(index)
             text = page.get_text()
+
+            if index < 3:
+                # TODO : check if we find a line with the authors name so we can retrieve the next line as the title of the book
+                print(text)
 
             # split text between chapter keys and content
             for text_line in text.splitlines(True):
@@ -45,16 +47,23 @@ class BookManager:
                     if (stripped_chapter_num - chapter_index <= 2
                             and stripped_chapter_num not in chapter_dict):
                         chapter_dict[stripped_chapter_num] = ''
-
                         chapter_index = stripped_chapter_num
                         continue
 
                 if chapter_index > 0:
+                    # indexing content of the current chapter
                     chapter_dict[chapter_index] += text_line
+                else:
+                    # if no chapter is found there, we are parsing the rules
+                    print('TODO : Check for spells (vol 2)')
+
+                    print('TODO : Check for potions and equipment (vol 1 + 3)')
 
         chapter_bulk = []
         link_bulk = []
         battle_bulk = []
+
+        regex_links = {}
 
         for number, content in chapter_dict.items():
             regex_battles = re.findall(r'(\w+)\s+HABIL[E|I]TÉ:\s+(\d+)\s+ENDURANCE:\s+(\d+)', content)
@@ -63,7 +72,6 @@ class BookManager:
                 chapter_number=number,
                 content=content.replace('\n', '<br/>'),
                 book=book,
-                has_battle=True if regex_battles else False  # TODO : see if we want to create a new object
             )
 
             for battle in regex_battles:
@@ -71,17 +79,23 @@ class BookManager:
                     name=battle[0],
                     dexterity=int(battle[1]),
                     endurance=int(battle[2]),
+                    chapter=book_chapter,
                 ))
 
             chapter_bulk.append(book_chapter)
 
-            regex_links = re.findall(r'\bau\s+(\d+)', content)
+            regex_links[book_chapter.chapter_number] = set(r for r in re.findall(r'\bau\s+(\d+)', content))
 
-            for lid in set(r for r in regex_links if regex_links):
-                chapter_link = ChapterLink(
-                    chapter_dest_number=lid,
-                    link=book_chapter)
-                link_bulk.append(chapter_link)
+        for chapter, links in regex_links.items():
+            chapter_src = list(filter(lambda x: x.chapter_number == chapter, chapter_bulk)).pop()
+
+            for link in links:
+                chapter_dest = list(filter(lambda x: x.chapter_number == int(link), chapter_bulk)).pop()
+                link_bulk.append(ChapterLink(
+                    chapter_dest_number=link,
+                    chapter_src=chapter_src,
+                    chapter_dest=chapter_dest,
+                ))
 
         BookChapter.objects.bulk_create(chapter_bulk)
         ChapterLink.objects.bulk_create(link_bulk)

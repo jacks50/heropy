@@ -24,102 +24,10 @@
 </head>
 
 <body style="background-color: #0c1121;">
-<!--section>
-    <dialog class="nes-dialog is-dark is-rounded" id="dialog-dark-rounded">
-        <form method="dialog">
-            <div style="display: flex; flex-direction: row; width: 800px; height: 700px;">
-                <div style="width:50%; height:50%; display: flex; flex-direction: column; justify-content: center;">
-                    <div class="content-stat-box nes-container is-dark">
-                        <label for="goldDiv">OR</label>
-
-                        <div class="stat-box" id="goldDiv">
-                            {{ gold|length }} <i class="nes-icon coin"></i>
-                        </div>
-                    </div>
-
-                    <div class="content-stat-box nes-container is-dark">
-                        <label for="invDiv">INVENTAIRE</label>
-
-                        <div class="stat-box" id="invDiv">
-                            <p>TODO</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="width:50%; height:50%; display: flex; flex-direction: column;">
-                    <div class="content-stat-box nes-container is-dark">
-                        <label for="enduranceDiv">END</label>
-
-                        <div class="stat-box" id="enduranceDiv">
-                            <i class="nes-icon heart"></i> x {{ endurance|length }}
-                        </div>
-
-                        <div class="button-box">
-                            <label class="nes-btn" id="plusBtEndurance" onclick="UpdateStats('endurance', 1);"
-                                   style="height: 42px;">+</label>
-                            <label class="nes-btn" id="minusBtEndurance" onclick="UpdateStats('endurance', -1);"
-                                   style="height: 42px;">-</label>
-                        </div>
-                    </div>
-
-                    <div class="content-stat-box nes-container is-dark">
-                        <label for="dexterityDiv">DEX</label>
-
-                        <div class="stat-box" id="dexterityDiv">
-                            <i class="nes-icon trophy"></i> x {{ dexterity|length }}
-                        </div>
-
-                        <div class="button-box">
-                            <label class="nes-btn" id="plusBtDexterity" onclick="UpdateStats('dexterity', 1);"
-                                   style="height: 42px;">+</label>
-                            <label class="nes-btn" id="minusBtDexterity" onclick="UpdateStats('dexterity', -1);"
-                                   style="height: 42px;">-</label>
-                        </div>
-                    </div>
-
-                    <div class="content-stat-box nes-container is-dark">
-                        <label for="luckDiv">CHA</label>
-
-                        <div class="stat-box" id="luckDiv">
-                            <i class="nes-icon star"></i> x {{ luck|length }}
-                        </div>
-
-                        <div class="button-box">
-                            <label class="nes-btn" id="plusBtLuck" onclick="UpdateStats('luck', 1);"
-                                   style="height: 42px;">+</label>
-                            <label class="nes-btn" id="minusBtLuck" onclick="UpdateStats('luck', -1);"
-                                   style="height: 42px;">-</label>
-                        </div>
-                    </div>
-
-                    <div class="content-stat-box nes-container is-dark">
-                        <label for="magicDiv">MGI</label>
-
-                        <div class="stat-box" id="magicDiv">
-                            <i class="nes-icon star"></i> x {{ magic|length }}
-                        </div>
-
-                        <div class="button-box">
-                            <label class="nes-btn" id="plusBtMgi" onclick="UpdateStats('magic', 1);"
-                                   style="height: 42px;">+</label>
-                            <label class="nes-btn" id="minusBtMgi" onclick="UpdateStats('magic', -1);"
-                                   style="height: 42px;">-</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <menu style="text-align: right;">
-                <button class="nes-btn">Fermer</button>
-            </menu>
-        </form>
-    </dialog>
-</section-->
-
-<div class="main-body" style="background: url('{% static "img/background_start.png" %}') repeat-x;">
-{% block body %}
-{% endblock %}
-</div>
+    <div class="main-body" style="background: url('{% static "img/background_start.png" %}') repeat-x;">
+    {% block body %}
+    {% endblock %}
+    </div>
 </body>
 
 </html>

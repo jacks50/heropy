@@ -10,7 +10,7 @@ urlpatterns = [
     path('settings/', views.settings, name='settings'),
     path('booklist/', views.booklist, name='booklist'),
     path('load/', views.load, name='load'),
-    path('book/', views.book, name='book'),
+    path('book/<int:book_id>', views.book, name='book'),
     path('book/chapter/<int:book_id>/<int:chapter_id>/', views.chapter, name='chapter'),
 
     # API

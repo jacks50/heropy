@@ -31,3 +31,15 @@ function UpdateInventory() {
         // TODO
     })
 }
+
+function UpdateSpell() {
+    CallApi(``, DEFAULT_FETCH_HEADER, (responseData) => {
+        var container = document.getElementById(`spellDiv`);
+
+        container.innerHTML = "";
+
+        var className = ""
+
+        // TODO
+    })
+}
