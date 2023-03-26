@@ -41,3 +41,9 @@
     background: repeating-linear-gradient(-90deg, #000, #000 1px, #3C281D 1px, #3C281D 10px);
     width:25%;
 }
+
+.back-button {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}

@@ -2,14 +2,12 @@
 {% load static %}
 
 {% block body %}
+<h2 style="text-align: center;">Liste des livres</h2>
+
 <form action="{% url 'booklist' %}" enctype="multipart/form-data" method="post">
     {% csrf_token %}
 
-    <h2 style="text-align: center;">Liste des livres</h2>
-
     <div style="text-align: center; margin: 2em;">
-        <a class="nes-btn is-error" href="{% url 'index'%}">Revenir à l'accueil</a>
-
         <label class="nes-btn">
             <label for="newfile">Choose a file</label>
             <input accept="application/pdf" id="newfile" name="newfile" type="file">
@@ -21,11 +19,11 @@
     <div style="display: flex; flex-direction: column; align-content: center;">
         <table class="nes-table is-dark is-centered" style="text-align: center; width: 100%; background-color: #000000">
             <thead>
-                <tr>
-                    <td>Nom du livre</td>
-                    <td>Nombre de chapitres</td>
-                    <td>Actions</td>
-                </tr>
+            <tr>
+                <td>Nom du livre</td>
+                <td>Nombre de chapitres</td>
+                <td>Actions</td>
+            </tr>
             </thead>
 
             <tbody>
@@ -56,4 +54,8 @@
         </table>
     </div>
 </form>
+
+<div class="back-button">
+    <a class="nes-btn is-error" href="{% url 'index'%}">Revenir à l'accueil</a>
+</div>
 {% endblock %}

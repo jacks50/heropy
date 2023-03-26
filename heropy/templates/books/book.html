@@ -10,10 +10,6 @@
 </div>
 {% endif %}
 
-<div style="text-align: center; margin: 2em;">
-    <a class="nes-btn is-error" href="{% url 'index'%}">Revenir à l'accueil</a>
-</div>
-
 <div style="display: flex; flex-direction: column; align-items: center;">
     <table class="nes-table is-dark is-centered" style="text-align: center;">
         <thead>
@@ -46,10 +42,8 @@
         </tbody>
     </table>
 </div>
-{% endblock %}
 
-{% block footer %}
-<div style="text-align: center; margin: 5em;">
+<div class="back-button">
     <a class="nes-btn is-error" href="{% url 'index'%}">Revenir à l'accueil</a>
 </div>
 {% endblock %}

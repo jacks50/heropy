@@ -38,7 +38,7 @@ class Player(models.Model):
     gold = models.IntegerField(default=0)
 
     book = models.ForeignKey('Book', on_delete=models.CASCADE, null=True)
-    chapter = models.ForeignKey('BookChapter', on_delete=models.DO_NOTHING, null=True)
+    chapter = models.ForeignKey('BookChapter', on_delete=models.SET_NULL, null=True)
 
 
 class PlayerItem(models.Model):

@@ -12,6 +12,8 @@ _logger = logging.getLogger(__name__)
 
 class BookManager:
     UPLOAD_PATH = 'heropy/static/uploads/'
+    SINGLE_BATTLE_PATTERN = r'\s?([A-Z\s]+)\s?HABIL[E|I]TÉ\s?:\s?(\d+)\s?ENDURANCE\s?:\s?(\d+)'
+    MULTI_BATTLE_PATTERN = r'\s?HABIL[E|I]TÉ\s?ENDURANCE\s?(?:([a-zA-Z\s]+)\s?(\d+)\s+(\d+))'
 
     def __init__(self):
         pass
@@ -36,8 +38,8 @@ class BookManager:
             text = page.get_text()
 
             if index < 3:
-                # TODO : check if we find a line with the authors name so we can retrieve the next line as the title of the book
-                print(text)
+                print("TODO : check if we find a line with the authors name "
+                      "so we can retrieve the next line as the title of the book")
 
             # split text between chapter keys and content
             for text_line in text.splitlines(True):
@@ -66,7 +68,10 @@ class BookManager:
         regex_links = {}
 
         for number, content in chapter_dict.items():
-            regex_battles = re.findall(r'(\w+)\s+HABIL[E|I]TÉ:\s+(\d+)\s+ENDURANCE:\s+(\d+)', content)
+            regex_battles = re.findall(self.SINGLE_BATTLE_PATTERN, content)
+
+            if not regex_battles:
+                print("TODO : regex_battles = re.findall(r'MULTI_BATTLE_PATTERN', content)")
 
             book_chapter = BookChapter(
                 chapter_number=number,
@@ -129,9 +134,26 @@ class BookManager:
         return False
 
     def reload_book(self, book_id):
-        Book.objects.get(pk=book_id).chapters
-        self._load_book(Book.objects.get(pk=book_id))
-        return
+        # get current book
+        current_book = Book.objects.get(pk=book_id)
+
+        # prepare update for players
+        player_update = {}
+        for player in Player.objects.filter(book=current_book):
+            player_update[player] = player.chapter.chapter_number
+
+        # delete chapters of the book
+        BookChapter.objects.filter(book=current_book).delete()
+
+        # reload book
+        self._load_book(current_book)
+
+        # update linked players to the correct chapter
+        for player, chapter_number in player_update.items():
+            player.chapter = current_book.chapters.get(chapter_number=chapter_number)
+            player.save()
+
+        return True
 
     def get_book(self, book_id):
         return Book.objects.get(pk=book_id)

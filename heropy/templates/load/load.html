@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block styles %}
 <style>
@@ -42,10 +43,8 @@
         </ul>
     </div>
 </form>
-{% endblock %}
 
-{% block footer %}
-<div style="text-align: right; margin: 2em;">
+<div class="back-button">
     <a class="nes-btn is-error" href="{% url 'index'%}">Revenir à l'accueil</a>
 </div>
 {% endblock %}
