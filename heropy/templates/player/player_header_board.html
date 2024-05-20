@@ -1,0 +1,26 @@
+{% load static %}
+
+<dialog id="goldDialog" class="display: flex">
+    <label for="goldInput">Add amount</label>
+    <input class="nes-input is-dark" id="goldInput" type="number" value="0"/>
+    <button id="confirmGoldDialogBt" class="nes-btn is-primary" onclick="confirmGold();">
+        Add
+    </button>
+    <button id="closeGoldDialogBt" class="nes-btn is-error" onclick="closeGoldDialog();">
+        Close
+    </button>
+</dialog>
+
+<div style="display: flex; flex-direction: row; width: 100%; height: 20%;">
+    <img src="{% static 'img/warrior_x3.gif' %}" style="margin: auto;">
+
+    <div style="display: flex; flex-direction: column; width: 50%;">
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; height: 50%;">
+            <i>NOM</i> {{ name }}
+        </div>
+
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; height: 50%;">
+            <i>OR</i> <i id="goldField">{{ gold }}</i> <img id="goldImg" src="{% static 'img/gold_icon.png' %}" onclick="showGoldDialog();">
+        </div>
+    </div>
+</div>

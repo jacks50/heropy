@@ -1,0 +1,30 @@
+{% load static %}
+
+<div id="chapterBattle" class="nes-container with-title is-dark" style="width: 100%; height: 20%;">
+    <p class="title">BATTLE</p>
+
+    <div style="display: flex; flex-direction: row; gap: 8px; justify-content: space-between;">
+        {% for enemy in chapter.enemies.all %}
+        <div style="display: flex; flex-direction: row; align-items: center;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="{% static 'img/lizard_x3.gif' %}" style="margin: auto;">
+                {{ enemy.name }}
+            </div>
+
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <div style="display: flex; flex-direction: row; align-items: center;">
+                    <p>END : {{ enemy.endurance }}</p>
+                </div>
+                <p>DEX : <span id="ennemy_base">{{ enemy.dexterity }}</span></p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <button class="nes-btn is-primary" title="Roll the dice !" onclick="Random(2, 'ennemy_base', 'ennemy_dice_{{ enemy.id }}');">
+                    <img src="{% static 'img/dice_icon.png' %}">
+                </button>
+                <p>Dé : <span id="ennemy_dice_{{ enemy.id }}" value="0">0</span></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

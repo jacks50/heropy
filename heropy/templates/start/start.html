@@ -17,49 +17,66 @@
 
     <div class="nes-table-responsive">
         <div class="nes-field">
-            <label for="name_field">Votre NOM</label>
-            <input class="nes-field" id="name_field" name="player_name" required type="text"/>
+            {{ form.player_name.errors }}
+            {{ form.player_name.label_tag }}
+            {{ form.player_name }}
         </div>
 
-        <div class="nes-field">
-            <label for="name_field">Votre ENDURANCE<sup>?</sup></label>
-            <input class="nes-field" id="endurance_field" name="player_end" required type="number"/>
-            <input class="nes-field" id="endurance_base" name="player_end_base" type="number" value="12">
+        <div class="nes-field is-inline">
+            {{ form.player_endurance.errors }}
+            {{ form.player_endurance.label_tag }}
+            {{ form.player_endurance }}
+
+            <label for="endurance_base">BASE</label>
+            <input class="nes-input is-dark" id="endurance_base" name="player_end_base" type="number" value="12">
+
             <button class="nes-btn is-warning" onclick="Random(2, 'endurance_base', 'endurance_field');" type="button">
                 LANCER LES DES
             </button>
         </div>
 
-        <div class="nes-field">
-            <label for="name_field">Votre HABILETE<sup>?</sup></label>
-            <input class="nes-field" id="dexterity_field" name="player_dex" required type="number"/>
-            <input class="nes-field" id="dexterity_base" name="player_dex_base" type="number" value="6"/>
+        <div class="nes-field is-inline">
+            {{ form.player_dexterity.errors }}
+            {{ form.player_dexterity.label_tag }}
+            {{ form.player_dexterity }}
+
+            <label for="dexterity_base">BASE</label>
+            <input class="nes-input is-dark" id="dexterity_base" name="player_dex_base" type="number" value="6"/>
+            
             <button class="nes-btn is-warning" onclick="Random(1, 'dexterity_base', 'dexterity_field');" type="button">
                 LANCER LES DES
             </button>
         </div>
 
-        <div class="nes-field">
-            <label for="name_field">Votre CHANCE<sup>?</sup></label>
-            <input class="nes-field" id="luck_field" name="player_luck" required type="number"/>
-            <input class="nes-field" id="luck_base" name="player_luck_base" type="number" value="6"/>
+        <div class="nes-field is-inline">
+            {{ form.player_luck.errors }}
+            {{ form.player_luck.label_tag }}
+            {{ form.player_luck }}
+
+            <label for="luck_base">BASE</label>
+            <input class="nes-input is-dark" id="luck_base" name="player_luck_base" type="number" value="6"/>
+
             <button class="nes-btn is-warning" onclick="Random(1, 'luck_base', 'luck_field');" type="button">
                 LANCER LES DES
             </button>
         </div>
 
-        <div class="nes-field">
-            <label for="name_field">Votre MAGIE<sup>?</sup></label>
-            <input class="nes-field" id="magic_field" name="player_magic" required type="number"/>
-            <input class="nes-field" id="magic_base" name="player_magic_base" type="number" value="6"/>
+        <div class="nes-field is-inline">
+            {{ form.player_magic.errors }}
+            {{ form.player_magic.label_tag }}
+            {{ form.player_magic }}
+
+            <label for="magic_base">BASE</label>
+            <input class="nes-input is-dark" id="magic_base" name="player_magic_base" type="number" value="6"/>
+
             <button class="nes-btn is-warning" onclick="Random(2, 'magic_base', 'magic_field');" type="button">
                 LANCER LES DES
             </button>
         </div>
 
         <div class="nes-field">
-            <label for="name_field">Votre AVENTURE</label>
-            <select id="dark_select" name="player_book" required>
+            <label for="player_book">Votre AVENTURE</label>
+            <select id="player_book" name="player_book" required>
                 <option disabled hidden selected value="">Choisir ...</option>
                 {% for t in titles %}
                 <option value="{{ t.id }}">{{ t.title }}</option>
@@ -89,7 +106,7 @@
 
         <div class="nes-field" style="text-align: center; margin: 2em;">
             <p>Etes-vous prêt ?</p>
-            <input class="nes-btn is-success" type="submit" value="Commencer l'aventure"></input>
+            <input class="nes-btn is-success" type="submit" value="Commencer l'aventure"/>
         </div>
     </div>
 </form>

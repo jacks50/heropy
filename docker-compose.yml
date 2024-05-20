@@ -1,0 +1,54 @@
+# docker compose up : runs the app
+# docker compose build IMAGE_NAME : builds the image where the service is IMAGE_NAME
+# docker compose run SERVICE COMMAND : runs the COMMAND on the related container named SERVICE
+# docker compose logs -f : shows logs of the container
+# docker compose ps : way prettier ps command to show running containers
+# docker exec -it CONTAINER bash : executes bash on the related container
+# docker stop $(docker ps -a -q) : stops all running containers
+
+# docker run VS docker exec => single responsibility
+#  docker run will build a new image and send the command to the new container, which will be then dropped
+#  docker exec will run that command against a running service
+#  since the command could be an heavy process, it is better to use docker run -> it creates a new container, run the command, drop the container, and update linked ressources from the volume
+#  this is the single responsibility principle that is better to use : docker exec to check the running / dev container, and docker run for single tasks such as updating packages
+
+# &name - defines an anchor that can be referenced later
+x-db-variables: &dbvars
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+
+services:
+  db:
+    image: postgres:13.12-alpine
+    volumes:
+      - ./pg/data:/var/lib/postgresql/data
+    environment:
+      # <<: - merge operator to merge values contained in a map
+      # *name - references an anchor named "name" defined
+      <<: *dbvars
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    image: heropy:latest
+    # build - tells docker that this image needs to be built
+    build: .
+    environment:
+      <<: *dbvars
+      DEFAULT_STORAGE_DSN: file:///data/media/?url=%2Fmedia%2F
+      DJANGO_SETTINGS_MODULE: heropy_django.settings
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+      - ./data:/data
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+    stdin_open: true
+    tty: true

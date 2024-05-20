@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block body %}
+
 <div style="display: flex; flex-direction: row; height:100%; gap: 4px;">
     <div style="display: flex; flex-direction: column; width: 75%; height: 100%;">
         <div class="nes-container with-title is-dark" style="width: 100%; height: 80%; overflow-y: auto; overflow-x: hidden">
@@ -10,45 +11,7 @@
         </div>
 
         {% if chapter.has_battle %}
-        <div class="nes-container with-title is-dark" style="width: 100%; height: 20%;">
-            <p class="title">BATTLE</p>
-
-            <div style="display: flex; flex-direction: row; gap: 8px; justify-content: space-between;">
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <img src="{% static 'img/lizard.gif' %}" style="margin: auto;">
-                    END : {{ endurance }}
-                    DEX : <span id="player_base">{{ dexterity }}</span>
-                </div>
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <button class="nes-btn is-primary" title="Roll the dice !" onclick="Random(2, 'player_base', 'player_dice');">
-                        <img src="{% static 'img/dice_icon.png' %}">
-                    </button>
-
-                    <p>Valeur obtenue : <span id="player_dice">0</span></p>
-                </div>
-
-                <p>VS</p>
-
-
-                {% for enemy in chapter.enemies.all  %}
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <img src="{% static 'img/lizard.gif' %}" style="margin: auto;">
-
-                    <p>{{ enemy.name }}</p>
-                    END : {{ enemy.endurance }}
-                    DEX : <span id="ennemy_base">{{ enemy.dexterity }}</span>
-                </div>
-                {% endfor %}
-
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <button class="nes-btn is-primary" title="Roll the dice !" onclick="Random(2, 'ennemy_base', 'ennemy_dice');">
-                        <img src="{% static 'img/dice_icon.png' %}">
-                    </button>
-
-                    <p>Valeur obtenue : <span id="ennemy_dice" value="0">0</span></p>
-                </div>
-            </div>
-        </div>
+        {% include "chapters/chapter_battle.html" %}
         {% endif %}
     </div>
 
@@ -62,93 +25,7 @@
             {% endfor %}
         </div>
 
-        <div style="display: flex; flex-direction: column; align-items: center; height: 55%; width: 100%; gap: 6px; padding: 2px; background-color: black; border: 4px solid white;">
-            <div style="display: flex; flex-direction: row; width: 100%; height: 20%;">
-                <img src="{% static 'img/warrior_x3.gif' %}" style="margin: auto;">
-                
-                <div style="display: flex; flex-direction: column; width: 50%;">
-                    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; height: 50%;">
-                        <i>NOM</i> {{ name }}
-                    </div>
-
-                    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; height: 50%;">
-                        <i>OR</i> {{ gold }} <img src="{% static 'img/gold_icon.png' %}">
-                    </div>
-                </div>
-            </div>
-            
-            <div style="display: flex; flex-direction: row; width: 100%; height: 15%; justify-content: space-between; align-items: center;">
-                <i style="width: 25%; text-align: center;">END</i>
-
-                <div class="content-box" style="width: 40%; justify-content: flex-start;">
-                    <img alt="endurance" src="{% static 'img/endurance_icon.png' %}"> <i id="enduranceField">x {{ endurance }}</i>
-                </div>
-
-                <div class="content-box" style="width: 30%;">
-                    <label class="nes-btn" id="plusBtEndurance" onclick="UpdateStats('endurance', 1);">+</label>
-                    <label class="nes-btn" id="minusBtEndurance" onclick="UpdateStats('endurance', -1);">-</label>
-                </div>
-            </div>
-
-            <div style="display: flex; flex-direction: row; width: 100%; height: 15%; justify-content: space-between; align-items: center;">
-                <i style="width: 25%; text-align: center;">DEX</i>
-
-                <div class="content-box" style="width: 40%; justify-content: flex-start;">
-                    <img alt="dexterity" src="{% static 'img/dexterity_icon.png' %}"> <i id="dexterityField">x {{ dexterity }}</i>
-                </div>
-
-                <div class="content-box" style="width: 30%;">
-                    <label class="nes-btn" id="plusBtDexterity" onclick="UpdateStats('dexterity', 1);">+</label>
-                    <label class="nes-btn" id="minusBtDexterity" onclick="UpdateStats('dexterity', -1);">-</label>
-                </div>
-            </div>
-
-            <div style="display: flex; flex-direction: row; width: 100%; height: 15%; justify-content: space-between; align-items: center;">
-                <i style="width: 25%; text-align: center;">CHA</i>
-
-                <div class="content-box" style="width: 40%; justify-content: flex-start;">
-                    <img alt="luck" src="{% static 'img/luck_icon.png' %}"> <i id="luckField">x {{ luck }}</i>
-                </div>
-
-                <div class="content-box" style="width: 30%;">
-                    <label class="nes-btn" id="plusBtLuck" onclick="UpdateStats('luck', 1);">+</label>
-                    <label class="nes-btn" id="minusBtLuck" onclick="UpdateStats('luck', -1);">-</label>
-                </div>
-            </div>
-
-            <div style="display: flex; flex-direction: row; width: 100%; height: 15%; justify-content: space-between; align-items: center;">
-                <i style="width: 25%; text-align: center;">MGI</i>
-
-                <div class="content-box" style="width: 40%; justify-content: flex-start;">
-                    <img alt="magic" src="{% static 'img/magic_icon.png' %}"> <i id="magicField">x {{ magic }}</i>
-                </div>
-
-                <div class="content-box" style="width: 30%;">
-                    <label class="nes-btn" id="plusBtMgi" onclick="UpdateStats('magic', 1);">+</label>
-                    <label class="nes-btn" id="minusBtMgi" onclick="UpdateStats('magic', -1);">-</label>
-                </div>
-            </div>
-
-            <div style="display: flex; flex-direction: row; width: 100%; height: 20%; justify-content: space-evenly; align-items: center;">
-                <button class="nes-btn is-warning" onclick="document.getElementById('dialog-dark-rounded').showModal();"
-                        type="button">
-                    <img src="{% static 'img/inventory_icon.png' %}">
-                    <img src="{% static 'img/inventory_icon2.png' %}">
-                </button>
-
-                <button class="nes-btn is-success" onclick="document.getElementById('dialog-dark-rounded').showModal();"
-                        type="button">
-                    <img src="{% static 'img/spellbook_icon.png' %}">
-                    <img src="{% static 'img/spellbook_icon2.png' %}">
-                </button>
-
-                <button class="nes-btn" onclick="document.getElementById('dialog-dark-rounded').showModal();"
-                        type="button">
-                    <img src="{% static 'img/dice_icon.png' %}">
-                    <img src="{% static 'img/dice_icon2.png' %}">
-                </button>
-            </div>
-        </div>
+        {% include "chapters/chapter_player_board.html" %}
 
         <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; height: 10%; width: 100%;">
             <a class="nes-btn is-error" href="{% url 'index'%}">

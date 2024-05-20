@@ -35,8 +35,8 @@
             {% for p in players %}
             <li>
                 <div style="display: inline-block;">
-                    {{ p.name }} : {{ p.book.title }} <input class="nes-btn is-success" name="player_id" type="submit"
-                                                             value="{{ p.id }}">Continuer</input>
+                    {{ p.name }} : {{ p.book.title }}
+                    <input class="nes-btn is-success" name="player_id" type="submit" value="{{ p.id }}">Continuer</input>
                 </div>
             </li>
             {% endfor %}

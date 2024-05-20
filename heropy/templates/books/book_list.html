@@ -2,15 +2,25 @@
 {% load static %}
 
 {% block body %}
+
+<script>
+function selectedFileChange() {
+    var fileInput = document.getElementById("newfile");
+
+    if (fileInput.files.length > 0)
+        document.getElementById("newfileLabel").innerHTML = fileInput.files[0].name;
+}
+</script>
+
 <h2 style="text-align: center;">Liste des livres</h2>
 
-<form action="{% url 'booklist' %}" enctype="multipart/form-data" method="post">
+<form action="{% url 'book_list' %}" enctype="multipart/form-data" method="post">
     {% csrf_token %}
 
     <div style="text-align: center; margin: 2em;">
         <label class="nes-btn">
-            <label for="newfile">Choose a file</label>
-            <input accept="application/pdf" id="newfile" name="newfile" type="file">
+            <label id="newfileLabel" for="newfile">Ajouter un nouveau livre</label>
+            <input accept="application/pdf" id="newfile" name="newfile" type="file" oninput="selectedFileChange()">
         </label>
 
         <input class="nes-btn is-success" type="submit" value="Valider"/>
@@ -30,22 +40,22 @@
             {% for book in books %}
             <tr>
                 <td>
-                    {{ book.title }}
+                    {{ book.title }} {% if not book.loaded %} /!\ {% endif %}
                 </td>
                 <td>
                     {{ book.chapters.count }}
                 </td>
                 <td>
                     <button class="nes-btn is-primary" title="View book and chapters" name="view_book_id" type="submit" value="{{ book.id }}">
-                        View <img src="{% static 'img/dice_icon.png' %}">
+                        Voir <img src="{% static 'img/dice_icon.png' %}">
                     </button>
 
                     <button class="nes-btn is-success" title="Parse chapters again" name="reload_book_id" type="submit" value="{{ book.id }}">
-                        Reload <img src="{% static 'img/dice_icon.png' %}">
+                        Recharger <img src="{% static 'img/dice_icon.png' %}">
                     </button>
 
                     <button class="nes-btn is-error" title="Delete this book and players associated" name="delete_book_id" type="submit" value="{{ book.id }}">
-                        Delete <img src="{% static 'img/dice_icon.png' %}">
+                        Supprimer <img src="{% static 'img/dice_icon.png' %}">
                     </button>
                 </td>
             </tr>

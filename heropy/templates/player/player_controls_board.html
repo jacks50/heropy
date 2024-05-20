@@ -1,0 +1,76 @@
+{% load static %}
+
+<dialog id="inventoryDialog" class="display: flex;">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'equipment')">Equipment</button>
+        <button class="tablinks" onclick="openTab(event, 'spell')">Spells</button>
+        <button class="tablinks" onclick="openTab(event, 'item')">Items</button>
+    </div>
+
+    <div id="equipment" class="tabcontent">
+        <p>Equipment</p>
+    </div>
+
+    <div id="spell" class="tabcontent">
+        <p>Spells</p>
+    </div>
+
+    <div id="item" class="tabcontent">
+        <p>Items</p>
+    </div>
+</dialog>
+
+<dialog id="itemDialog" class="display: flex">
+    <label for="itemNameInput">Item name</label>
+    <input class="nes-input is-dark" id="itemNameInput" type="text"/>
+
+    <label for="itemIsConsumable">Consumable</label>
+    <input class="nes-input is-dark" id="itemIsConsumable" type="checkbox"/>
+
+    <label for="itemQuantityInput">Quantity</label>
+    <input class="nes-input is-dark" id="itemQuantityInput" type="number"/>
+
+    <label for="itemDescInput">Description</label>
+    <input class="nes-input is-dark" id="itemDescInput" type="text"/>
+
+    <label for="itemEffectInput">Effect</label>
+    <input class="nes-input is-dark" id="itemEffectInput" type="text"/>
+
+    <button class="nes-btn is-primary" onclick="confirmItemDialog();">
+        Add item
+    </button>
+</dialog>
+
+<dialog id="spellDialog" class="display: flex">
+    <label for="spellNameInput">Spell name</label>
+    <input class="nes-input is-dark" id="spellNameInput" type="text"/>
+
+    <label for="spellDescInput">Description</label>
+    <input class="nes-input is-dark" id="spellDescInput" type="text"/>
+
+    <label for="spellEffectInput">Effect</label>
+    <input class="nes-input is-dark" id="spellEffectInput" type="text"/>
+
+    <button class="nes-btn is-primary" onclick="confirmSpellDialog();">
+        Add spell
+    </button>
+</dialog>
+
+<div style="display: flex; flex-direction: row; width: 100%; height: 20%; justify-content: space-evenly; align-items: center;">
+    <button class="nes-btn is-warning" onclick="showInventoryDialog();"
+            type="button">
+        <img src="{% static 'img/inventory_icon.png' %}">
+        <img src="{% static 'img/potion.png' %}">
+    </button>
+
+    <button class="nes-btn is-success" onclick="document.getElementById('dialog-dark-rounded').showModal();"
+            type="button">
+        <img src="{% static 'img/spellbook_icon.png' %}">
+        <img src="{% static 'img/spellbook_icon2.png' %}">
+    </button>
+
+    <button class="nes-btn" onclick="document.getElementById('dialog-dark-rounded').showModal();"
+            type="button">
+        <img src="{% static 'img/dice_icon.png' %}">
+    </button>
+</div>

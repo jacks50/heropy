@@ -1,10 +1,31 @@
 from django.db import models
 
 
+# TODO : see if items / spells must be linked to a book
 class Book(models.Model):
     title = models.CharField(max_length=64)
-    path = models.CharField(max_length=255)
+    file = models.FileField(null=True)
+    introduction = models.TextField(null=True)
     loaded = models.BooleanField()
+
+
+class BookItem(models.Model):
+    TYPE_CHOICE = [
+        ('consumable', 'Consumable'),
+        ('equipment', 'Equipment'),
+    ]
+
+    name = models.CharField(max_length=24)
+    description = models.TextField()
+    type = models.CharField(max_length=24, choices=TYPE_CHOICE, default='consumable')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, null=True, related_name='book_items')
+
+
+class BookSpell(models.Model):
+    name = models.CharField(max_length=24)
+    description = models.TextField()
+    effect = models.CharField(max_length=24)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, null=True, related_name='book_spells')
 
 
 class BookChapter(models.Model):
@@ -42,14 +63,15 @@ class Player(models.Model):
 
 
 class PlayerItem(models.Model):
-    EFFECT_CHOICE = [
-        ('add', 'Add'),
-        ('remove', 'Remove'),
+    TYPE_CHOICE = [
+        ('consumable', 'Consumable'),
+        ('equipment', 'Equipment'),
     ]
 
     name = models.CharField(max_length=24)
     description = models.TextField()
-    effect = models.CharField(max_length=24, choices=EFFECT_CHOICE, default='add')
+    type = models.CharField(max_length=24, choices=TYPE_CHOICE, default='consumable')
+    nb_usages = models.IntegerField(default=1)
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, related_name='items')
 
 

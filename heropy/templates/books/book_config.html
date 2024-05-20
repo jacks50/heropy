@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<form action="{% url 'book_config' loaded_book.id %}" method="post">
+    {% csrf_token %}
+
+    <div style="display: flex; flex-direction: row; gap: 4px; align-items: center; justify-content: space-evenly; height: 70%;">
+        <div style="display: flex; flex-direction: column; height: 100%; width: 50%; justify-content: space-around; padding: 14px;">
+            <div class="nes-field is-dark">
+                {{ form.book_name.errors }}
+                {{ form.book_name.label_tag }}
+                {{ form.book_name }}
+            </div>
+
+            <div class="nes-field is-dark">
+                {{ form.nb_chapters.errors }}
+                {{ form.nb_chapters.label_tag }}
+                {{ form.nb_chapters }}
+            </div>
+
+            <div class="nes-field is-dark">
+                {{ form.intro_pages.errors }}
+                {{ form.intro_pages.label_tag }}
+                {{ form.intro_pages }}
+            </div>
+
+            <div class="nes-field is-dark">
+                {{ form.item_pages.errors }}
+                {{ form.item_pages.label_tag }}
+                {{ form.item_pages }}
+            </div>
+
+            <div class="nes-field is-dark">
+                {{ form.spell_pages.errors }}
+                {{ form.spell_pages.label_tag }}
+                {{ form.spell_pages }}
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; height: 100%; width: 50%;">
+            <embed src="{{ loaded_book.file.url }}" style="height: 100%">
+        </div>
+    </div>
+
+    <div style="display: flex; flex-direction: row; height:30%; gap: 4px;">
+        <div style="display: flex; flex-direction: row; gap: 24px; margin-bottom: auto; width: 100%; align-items: center; justify-content: center;">
+            <input class="nes-btn is-warning" type="submit" value="Load configuration"/>
+            <a class="nes-btn is-success" href="{% url 'book_list' %}">Accept</a>
+        </div>
+    </div>
+
+</form>
+{% endblock %}

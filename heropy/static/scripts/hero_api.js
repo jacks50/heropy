@@ -3,7 +3,7 @@ DEFAULT_FETCH_HEADER =  {
     'X-Requested-With': 'XMLHttpRequest',
 }
 
-function CallApi(fetchUrl, fetchHeaders, updateCallback) {
+function callApi(fetchUrl, fetchHeaders, updateCallback) {
     fetch(
         fetchUrl, fetchHeaders
     ).then(response => {
@@ -13,15 +13,14 @@ function CallApi(fetchUrl, fetchHeaders, updateCallback) {
     })
 }
 
-function UpdateStats(stat, value) {
-    CallApi(`/heropy/stat/${stat}/${value}`, DEFAULT_FETCH_HEADER, (responseData) => {
-        var i = document.getElementById(`${stat}Field`);
-        i.textContent = "x " + responseData[stat];
+function updateStat(stat, value) {
+    callApi(`/heropy/stat/${stat}/${value}`, DEFAULT_FETCH_HEADER, (responseData) => {
+        document.getElementById(`${stat}Field`).textContent = (stat == "gold" ? responseData[stat] : responseData['stats'][stat]);
     })
 }
 
-function UpdateInventory() {
-    CallApi(``, DEFAULT_FETCH_HEADER, (responseData) => {
+function updateInventory() {
+    callApi(``, DEFAULT_FETCH_HEADER, (responseData) => {
         var container = document.getElementById(`inventoryDiv`);
 
         container.innerHTML = "";
@@ -32,8 +31,8 @@ function UpdateInventory() {
     })
 }
 
-function UpdateSpell() {
-    CallApi(``, DEFAULT_FETCH_HEADER, (responseData) => {
+function updateSpell() {
+    callApi(``, DEFAULT_FETCH_HEADER, (responseData) => {
         var container = document.getElementById(`spellDiv`);
 
         container.innerHTML = "";
